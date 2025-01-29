@@ -3,11 +3,12 @@ using UnityEngine.AI;
 
 public class MoveToPosition : MonoBehaviour
 {
-    [SerializeField] Transform target;
+    Transform target;
     NavMeshAgent agent;
 
     void Start()
     {
+        target = GameObject.FindGameObjectWithTag("Player").transform;
         agent = GetComponent<NavMeshAgent>();
     }
 
