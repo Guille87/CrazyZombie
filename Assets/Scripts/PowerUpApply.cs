@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class PowerUpApply : MonoBehaviour
 {
+    [SerializeField] AudioClip powerUpSound;
     const int POWER = 50;
 
     void OnTriggerEnter(Collider other)
@@ -9,8 +10,11 @@ public class PowerUpApply : MonoBehaviour
         if (other.gameObject.CompareTag("Player"))
         {
             other.gameObject.SendMessage("ApplyDamage", -POWER);
+            
+            AudioSource.PlayClipAtPoint(powerUpSound, Camera.main.transform.position, 0.25f);
+
+            Destroy(gameObject);
         }
 
-        Destroy(gameObject);
     }
 }

@@ -46,6 +46,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a995bd096177df148b40c5bd9d508e7c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  powerUpSound: {fileID: 8300000, guid: 4f5cab140578ca0469003f0d2606e174, type: 3}
 --- !u!135 &4335811814545280315
 SphereCollider:
   m_ObjectHideFlags: 0
