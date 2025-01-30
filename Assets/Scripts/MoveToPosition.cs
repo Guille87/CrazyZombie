@@ -14,6 +14,8 @@ public class MoveToPosition : MonoBehaviour
 
     void Update()
     {
-        agent.SetDestination(target.position);
+        if (!agent.isStopped){
+            agent.SetDestination(target.position);
+        }
     }
 }
