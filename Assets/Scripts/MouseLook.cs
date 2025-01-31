@@ -2,15 +2,13 @@ using UnityEngine;
 
 public class MouseLook : MonoBehaviour
 {
-    const float CLAMP_MIN = -45;
-    const float CLAMP_MAX = 45;
+    const float CLAMP_MIN = -90;
+    const float CLAMP_MAX = 90;
 
     float lookSensitivity = 2.0f;
     GameObject player;
 
     Vector2 rotation = Vector2.zero;
-    Vector2 smoothRot = Vector2.zero;
-    Vector2 velRot = Vector2.zero;
     
     void Start()
     {
@@ -25,7 +23,6 @@ public class MouseLook : MonoBehaviour
         // Rotate the camera
         rotation.y += Input.GetAxis("Mouse Y") * lookSensitivity;
         rotation.y = Mathf.Clamp(rotation.y, CLAMP_MIN, CLAMP_MAX);
-        smoothRot.y = Mathf.SmoothDamp(smoothRot.y, rotation.y, ref velRot.y, 0.1f);
-        transform.localEulerAngles = new Vector3(-smoothRot.y, 0, 0);
+        transform.localEulerAngles = new Vector3(-rotation.y, 0, 0);
     }
 }

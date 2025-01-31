@@ -11,7 +11,7 @@ public class PowerUpApply : MonoBehaviour
         {
             other.gameObject.SendMessage("ApplyDamage", -POWER);
             
-            AudioSource.PlayClipAtPoint(powerUpSound, Camera.main.transform.position, 0.25f);
+            AudioSource.PlayClipAtPoint(powerUpSound, transform.position, 0.25f);
 
             Destroy(gameObject);
         }

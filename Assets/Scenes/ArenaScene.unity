@@ -2142,7 +2142,7 @@ MonoBehaviour:
   m_OverrideVoxelSize: 0
   m_VoxelSize: 0.16666667
   m_MinRegionArea: 2
-  m_NavMeshData: {fileID: 23800000, guid: 663012315960c7c41ade2f96615cb4a0, type: 2}
+  m_NavMeshData: {fileID: 23800000, guid: 421cd329df881104480161184bb1b26f, type: 2}
   m_BuildHeightMesh: 0
 --- !u!1 &1118776889
 GameObject:
@@ -2595,7 +2595,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 5
-  jumpForce: 4
+  sprintSpeed: 7
+  jumpForce: 5
 --- !u!54 &1302714027
 Rigidbody:
   m_ObjectHideFlags: 0

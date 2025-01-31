@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class ProjectileMovement : MonoBehaviour
 {
-    const float SPEED = 10.0f;
+    const float SPEED = 50.0f;
     
     void Update()
     {
