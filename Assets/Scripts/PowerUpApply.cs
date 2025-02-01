@@ -3,7 +3,7 @@ using UnityEngine;
 public class PowerUpApply : MonoBehaviour
 {
     [SerializeField] AudioClip powerUpSound;
-    const int POWER = 50;
+    const int POWER = 20;
 
     void OnTriggerEnter(Collider other)
     {
@@ -15,6 +15,5 @@ public class PowerUpApply : MonoBehaviour
 
             Destroy(gameObject);
         }
-
     }
 }

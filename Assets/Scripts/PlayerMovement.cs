@@ -4,45 +4,54 @@ public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] float speed = 5f;
     [SerializeField] float sprintSpeed = 7f;
-    [SerializeField] float jumpForce = 5f;
+    [SerializeField] float jumpForce = 1f;
+    [SerializeField] float gravity = -9.81f;
 
-    Rigidbody rb;
-    CapsuleCollider col;
+    CharacterController controller;
+    Vector3 velocity;
 
     bool isCursorLocked = true;
 
     void Start()
     {
+        controller = GetComponent<CharacterController>();
+
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
-
-        rb = GetComponent<Rigidbody>();
-        col = GetComponent<CapsuleCollider>();
     }
     
     void Update()
     {
-        // Check if the player is holding down the shift key to sprint
-        float currentSpeed = speed;
-        if (Input.GetKey(KeyCode.LeftShift))
-        {
-            currentSpeed = sprintSpeed;
-        }
+        // Calculate the movement speed
+        float currentSpeed = Input.GetKey(KeyCode.LeftShift) ? sprintSpeed : speed;
+
+        // Get the input from the player
+        float moveX = Input.GetAxis("Horizontal");
+        float moveZ = Input.GetAxis("Vertical");
+
+        // Direction of movement relative to the player
+        Vector3 move = transform.right * moveX + transform.forward * moveZ;
 
         // Move the player
-        Vector2 moveInput = Vector2.zero;
-        moveInput.x = Input.GetAxis("Horizontal") * currentSpeed;
-        moveInput.y = Input.GetAxis("Vertical") * currentSpeed;
-        moveInput *= Time.deltaTime;
-        transform.Translate(moveInput.x, 0, moveInput.y);
+        controller.Move(move * currentSpeed * Time.deltaTime);
 
-        // Jump
-        if (IsGrounded() && Input.GetButtonDown("Jump"))
+        if (controller.isGrounded)
         {
-            rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+            if (velocity.y < 0f)
+                velocity.y = -0.1f;
+            
+            // Jump
+            if (Input.GetButtonDown("Jump"))
+            {
+                velocity.y = Mathf.Sqrt(jumpForce * -2f * gravity); // Calculate the jump velocity
+            }
         }
+
+        // Apply gravity
+        velocity.y += gravity * Time.deltaTime;
+        controller.Move(velocity * Time.deltaTime);
         
-        // Unlock the cursor
+        // Toggle the cursor
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             if (isCursorLocked)
@@ -65,10 +74,5 @@ public class PlayerMovement : MonoBehaviour
             Cursor.visible = false;
             isCursorLocked = true;
         }
-    }
-    
-    bool IsGrounded()
-    {
-        return Physics.Raycast(transform.position, Vector3.down, col.bounds.extents.y + 0.1f);
     }
 }
